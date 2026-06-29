@@ -13,10 +13,15 @@ CardioSense AI is a Final Year AI Project from the Department of Computer Scienc
 ## 🎯 Features
 
 ✨ **Ensemble Machine Learning** - Combined predictions from three advanced models
+
 📊 **Real-Time Analysis** - Instant risk assessment with visual insights
+
 📈 **Comprehensive Charts** - Risk gauge, model comparison, feature importance
+
 💯 **94.2% Accuracy** - Tested on 4,240 patient records
+
 🎨 **Modern UI** - Dark theme with glassmorphism, animations, and responsive design
+
 ⚡ **Fast Processing** - Sub-second predictions via FastAPI backend
 
 ## 🛠 Tech Stack
