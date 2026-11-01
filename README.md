@@ -66,7 +66,9 @@ CardioSense AI is a semester AI Project from the Department of Computer Science 
 
 > All models are regularized, with a train/test gap below 5%.
 
----
+## 🤖 Integrating ML Models
+
+The backend currently returns placeholder predictions. The trained models (.pkl) are not yet connected. To connect them, place the model files in `backend/models/` and load them in `main.py` with `joblib`.
 
 ## 📦 Project Structure
 
