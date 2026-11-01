@@ -1,13 +1,20 @@
 # CardioSense AI - Early Coronary Heart Disease Detection System
 
-A full-stack web application for predicting coronary heart disease risk using an ensemble of three machine learning models (XGBoost, LightGBM, and CatBoost).
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
+![Accuracy](https://img.shields.io/badge/Ensemble_Accuracy-88.66%25-success?style=flat)
+![AUC](https://img.shields.io/badge/AUC-93.77%25-blue?style=flat)
+
+A full-stack web application for predicting 10-year coronary heart disease (CHD) risk using an ensemble of three machine learning models (XGBoost, LightGBM, and CatBoost).
 
 ## 🏥 Project Overview
 
-CardioSense AI is a Final Year AI Project from the Department of Computer Science at **University of South Asia, Lahore**. The system analyzes clinical parameters from the Framingham Heart Study dataset to provide real-time CHD risk predictions.
+CardioSense AI is a semester AI Project from the Department of Computer Science at **University of South Asia, Lahore**. The system analyzes clinical parameters from the Framingham Heart Study dataset to provide real-time CHD risk predictions.
 
 **Team:**
-- **Fahad Khan** (B-28417) - Data Pre-Processing, Feature Engineering, Documentation and, Deployment
+- **Fahad Khan** (B-28417) - Data Pre-Processing, Feature Engineering, Documentation and Deployment
 - **Hammad Ahmed** (B-28400) - Research, Dataset collection, EDA, Model Training
 
 ## 🎯 Features
@@ -18,11 +25,11 @@ CardioSense AI is a Final Year AI Project from the Department of Computer Scienc
 
 📈 **Comprehensive Charts** - Risk gauge, model comparison, feature importance
 
-💯 **94.2% Accuracy** - Tested on 4,240 patient records
+💯 **88.66% Accuracy, 93.77% AUC** - Ensemble result on a held-out test set from 4,240 patient records
 
 🎨 **Modern UI** - Dark theme with glassmorphism, animations, and responsive design
 
-⚡ **Fast Processing** - Sub-second predictions via FastAPI backend
+⚡ **Fast Processing** - Quick predictions via FastAPI backend
 
 ## 🛠 Tech Stack
 
@@ -44,6 +51,7 @@ CardioSense AI is a Final Year AI Project from the Department of Computer Scienc
 - **XGBoost** - Gradient boosting
 - **LightGBM** - Fast boosting
 - **CatBoost** - Categorical handling
+- **SMOTE** - Class imbalance handling
 
 ---
 
@@ -56,7 +64,7 @@ CardioSense AI is a Final Year AI Project from the Department of Computer Scienc
 | XGBoost | 87.55% | 94.09% | 81.92% | 87.58% | 93.35% |
 | **Ensemble ★** | **88.66%** | **94.41%** | **82.20%** | **87.88%** | **93.77%** |
 
-> All models regularized — train/test gap < 5% (no overfitting confirmed ✅)
+> All models are regularized, with a train/test gap below 5%.
 
 ---
 
@@ -93,9 +101,9 @@ CardioSense AI/
 │   ├── package.json
 │   └── vite.config.js
 └── backend/                  # FastAPI application
-    ├── main.py             # API endpoints
-    ├── requirements.txt    # Python dependencies
-    └── models/             # (Add your .pkl models here)
+    ├── main.py               # API endpoints
+    ├── requirements.txt      # Python dependencies
+    └── models/               # Trained .pkl model files
 ```
 
 ## 🚀 Quick Start
@@ -151,7 +159,7 @@ Submit patient clinical data for risk prediction.
 }
 ```
 
-**Response:**
+**Example Response:**
 ```json
 {
   "ensemble_probability": 0.7167,
@@ -172,7 +180,7 @@ Submit patient clinical data for risk prediction.
 ### GET `/health`
 Health check endpoint.
 
-**Response:**
+**Example Response:**
 ```json
 {
   "status": "CardioSense AI API is running",
@@ -180,22 +188,17 @@ Health check endpoint.
 }
 ```
 
-## 🤖 Integrating ML Models
+## 🤖 Model Files
 
-The backend currently uses mock predictions for scaffolding. To integrate your trained models:
-
-1. Place your saved model files (`.pkl`) in `backend/models/`
-2. Update `main.py` to load the models:
+The trained models are stored in `backend/models/` and loaded by the backend with `joblib`:
 
 ```python
 import joblib
 
-# Load models
 xgb_model = joblib.load("models/xgb_model.pkl")
 lgbm_model = joblib.load("models/lgbm_model.pkl")
 cat_model = joblib.load("models/cat_model.pkl")
 
-# In predict function, replace mock values:
 xgb_prob = float(xgb_model.predict_proba(features)[0][1])
 lgbm_prob = float(lgbm_model.predict_proba(features)[0][1])
 cat_prob = float(cat_model.predict_proba(features)[0][1])
@@ -228,14 +231,14 @@ cat_prob = float(cat_model.predict_proba(features)[0][1])
 
 The models are trained on the Framingham Heart Study cohort with:
 - **4,240 patients** analyzed
-- **1,858 CHD cases** (43.8%)
-- **2,382 non-CHD cases** (56.2%)
 - **15 clinical features** per patient
-- **94.2% ensemble accuracy**
+- **10-year CHD risk** as the prediction target
+- **SMOTE** used to handle class imbalance
+- **88.66% ensemble accuracy** and **93.77% AUC** on the test set
 
 ## 🔒 Security & Privacy
 
-- All patient data processed locally — nothing stored after prediction
+- Patient data is used only to generate the prediction and is not stored
 - No external data transmission
 - Update `allow_origins` in `main.py` before production deployment
 - Always consult a qualified healthcare professional for medical decisions
@@ -246,11 +249,10 @@ This tool is for **informational and research purposes only**. It should not be 
 
 ## 📝 Development Notes
 
-- **Frontend:** Single Page Application (SPA) with client-side routing
+- **Frontend:** Single Page Application (SPA) built with React and Vite
 - **Backend:** RESTful API with CORS enabled
 - **Responsive:** Mobile-first design, optimized for 375px to 1440px widths
-- **Performance:** <500ms prediction time, optimized chart rendering
-- **Accessibility:** Semantic HTML, ARIA labels, screen reader support
+- **Accessibility:** Semantic HTML and ARIA labels
 
 ## 🔄 Build & Deployment
 
@@ -280,5 +282,5 @@ This project is created for educational purposes at University of South Asia, La
 
 ---
 
-**Last Updated:** June 2025
-**Status:** Complete & Production-Ready ✅
+**Last Updated:** November 2026
+**Status:** Project is Completed
